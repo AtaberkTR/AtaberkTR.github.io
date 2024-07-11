@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satın Alma Sayfası</title>
+    <link rel="stylesheet" href="Basix.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Ödeme Bilgileri</h2>
+        <form action="welldone2.html" method="POST">
+            <div class="form-group">
+                <label for="item-name">Alınan Ürün</label>
+                <input type="text" id="item-name" name="item-name" value="Premium VIP" readonly>
+            </div>
+            <div class="form-group">
+                <label for="item-price">Fiyat</label>
+                <input type="text" id="item-price" name="item-price" value="₺55.99" readonly>
+            </div>
+            <div class="form-group">
+                <label for="cardholder-name">Kart Sahibi Adı</label>
+                <input type="text" id="cardholder-name" name="cardholder-name" required>
+            </div>
+            <div class="form-group">
+                <label for="card-number">Kart Numarası</label>
+                <input type="text" id="card-number" name="card-number" required pattern="\d{16}">
+            </div>
+            <div class="form-group">
+                <label for="expiry-date">Son Kullanma Tarihi</label>
+                <input type="text" id="expiry-date" name="expiry-date" required placeholder="MM/YY" pattern="\d{2}/\d{2}">
+            </div>
+            <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" required pattern="\d{3}">
+            </div>
+            <button type="submit">Ödeme Yap</button>
+        </form>
+    </div>
+</body>
+</html>
