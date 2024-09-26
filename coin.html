@@ -17,21 +17,46 @@
 
         .container {
             text-align: center;
-            background-color: white;
+            background-color: #ffffff;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+        h1 {
+            color: #4CAF50;
         }
 
         .coin-display {
             margin-bottom: 20px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 15px 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px; /* Yuvarlak buton */
+            background-color: #4CAF50;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Hover efekti */
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .referral-section {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -44,10 +69,15 @@
         <button id="clickButton">Tıkla!</button>
         <h3>Yükseltmeler</h3>
         <button id="upgradeButton">Yükselt (10 $MENEMEN)</button>
-        <h3>Referans Kodu:</h3>
-        <input type="text" id="referralCode" placeholder="Kodunu Gir...">
-        <button id="useReferral">Kullan</button>
-        <h3>Aktif Referanslar: <span id="referralCount">0</span></h3>
+        <div class="referral-section">
+            <h3>Referans Kodu:</h3>
+            <input type="text" id="referralCode" placeholder="Kodunu Gir...">
+            <button id="useReferral">Kullan</button>
+            <h3>Aktif Referanslar: <span id="referralCount">0</span></h3>
+        </div>
+        <h3>Kullanıcı Adı:</h3>
+        <input type="text" id="username" placeholder="Kullanıcı Adı">
+        <button id="registerButton">Kaydet</button>
     </div>
 
     <script>
@@ -61,6 +91,8 @@
         const clickButton = document.getElementById('clickButton');
         const referralCodeInput = document.getElementById('referralCode');
         const useReferralButton = document.getElementById('useReferral');
+        const usernameInput = document.getElementById('username');
+        const registerButton = document.getElementById('registerButton');
 
         // Tıklama işlemi
         clickButton.addEventListener('click', () => {
@@ -90,6 +122,28 @@
                 coinCountDisplay.innerText = coinCount;
             } else {
                 alert('Lütfen geçerli bir referans kodu girin.');
+            }
+        });
+
+        // Kullanıcı kaydetme işlemi
+        registerButton.addEventListener('click', async () => {
+            const username = usernameInput.value;
+            if (username && coinCount > 0) {
+                const response = await fetch('http://localhost:5000/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, coins: coinCount }),
+                });
+
+                if (response.ok) {
+                    alert('Kullanıcı başarıyla kaydedildi!');
+                } else {
+                    alert('Kayıt sırasında bir hata oluştu.');
+                }
+            } else {
+                alert('Lütfen bir kullanıcı adı girin ve $MENEMEN kazanın.');
             }
         });
     </script>
