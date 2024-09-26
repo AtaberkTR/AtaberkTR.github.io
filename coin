@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Oyunu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .coin-display {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Clicker Oyunu</h1>
+        <div class="coin-display">
+            <h2>$MENEMEN: <span id="coinCount">0</span></h2>
+        </div>
+        <button id="clickButton">Tıkla!</button>
+        <h3>Yükseltmeler</h3>
+        <button id="upgradeButton">Yükselt (10 $MENEMEN)</button>
+        <h3>Referans Kodu:</h3>
+        <input type="text" id="referralCode" placeholder="Kodunu Gir...">
+        <button id="useReferral">Kullan</button>
+        <h3>Aktif Referanslar: <span id="referralCount">0</span></h3>
+    </div>
+
+    <script>
+        let coinCount = 0;
+        let upgradeCost = 10;
+        let referralCount = 0;
+
+        const coinCountDisplay = document.getElementById('coinCount');
+        const upgradeButton = document.getElementById('upgradeButton');
+        const referralCountDisplay = document.getElementById('referralCount');
+        const clickButton = document.getElementById('clickButton');
+        const referralCodeInput = document.getElementById('referralCode');
+        const useReferralButton = document.getElementById('useReferral');
+
+        // Tıklama işlemi
+        clickButton.addEventListener('click', () => {
+            coinCount++;
+            coinCountDisplay.innerText = coinCount;
+        });
+
+        // Yükseltme işlemi
+        upgradeButton.addEventListener('click', () => {
+            if (coinCount >= upgradeCost) {
+                coinCount -= upgradeCost;
+                coinCountDisplay.innerText = coinCount;
+                upgradeCost += 10; // Her yükseltmede maliyet artar
+            } else {
+                alert('Yeterli $MENEMEN yok!');
+            }
+        });
+
+        // Referans kullanma işlemi
+        useReferralButton.addEventListener('click', () => {
+            const referralCode = referralCodeInput.value;
+            if (referralCode) {
+                referralCount++;
+                referralCountDisplay.innerText = referralCount;
+                alert('Referans kodu kullanıldı! 1 $MENEMEN kazandın.');
+                coinCount++;
+                coinCountDisplay.innerText = coinCount;
+            } else {
+                alert('Lütfen geçerli bir referans kodu girin.');
+            }
+        });
+    </script>
+</body>
+</html>
